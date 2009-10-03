@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+system *ARGV
+status = $?
+system "growlnotify", "-m", "#{ARGV.first} is finished", "remind"
+exit status.to_i
