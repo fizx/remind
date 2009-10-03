@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "remind"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Growl notifications when command finishes}
+    gem.description = %Q{Simple command-line notifications via growl}
     gem.email = "kyle@kylemaxwell.com"
     gem.homepage = "http://github.com/fizx/remind"
     gem.authors = ["Kyle Maxwell"]

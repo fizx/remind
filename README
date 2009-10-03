@@ -1,6 +1,6 @@
 = remind
 
-Description goes here.
+Micro-gem to allow growl notifications when a command finishes.
 
 == Note on Patches/Pull Requests
  
