@@ -1,5 +1,27 @@
 #!/usr/bin/env ruby
-system *ARGV
-status = $?
-system "growlnotify", "-m", "#{ARGV.first} is finished", "remind"
-exit status.to_i
+NUMBER = /\d+/
+if ARGV.first.to_i > 0
+  require "set"
+  def running
+    `ps aux`.split("\n").map{|line| line[NUMBER].to_i }
+  end
+  
+  # assume list of pids
+  pids = ARGV.map{|a| a.to_i }.uniq
+  while pids.length > 0
+    sleep 1
+    list = Set.new(running())
+    pids.each do |pid|
+      if !list.include?(pid)
+        system "growlnotify", "-m", "Process ##{pid} is finished", "remind"
+        pids.remove(pid)
+      end
+    end
+  end
+else
+  # assume command to be run
+  system *ARGV
+  status = $?
+  system "growlnotify", "-m", "#{ARGV.first} is finished", "remind"
+  exit status.to_i
+end
