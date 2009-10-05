@@ -1,20 +1,24 @@
 #!/usr/bin/env ruby
 NUMBER = /\d+/
 if ARGV.first.to_i > 0
+  # assume list of pids
+  
   require "set"
   def running
     `ps aux`.split("\n").map{|line| line[NUMBER].to_i }
   end
   
-  # assume list of pids
   pids = ARGV.map{|a| a.to_i }.uniq
+  
+  puts "Waiting for #{pids.inspect} to finish."
+  
   while pids.length > 0
     sleep 1
     list = Set.new(running())
     pids.each do |pid|
       if !list.include?(pid)
         system "growlnotify", "-m", "Process ##{pid} is finished", "remind"
-        pids.remove(pid)
+        pids.delete(pid)
       end
     end
   end
